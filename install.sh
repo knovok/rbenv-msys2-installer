@@ -2,6 +2,13 @@
 
 set -e
 
+apply_patches()
+{
+	for PATCH_FILE in $(find ../../patches -name *.patch); do
+		patch < $PATCH_FILE
+	done
+}
+
 wget https://github.com/rbenv/rbenv/archive/master.tar.gz -O rbenv.tar.gz
 wget https://github.com/rbenv/ruby-build/archive/master.tar.gz -O ruby-build.tar.gz
 tar -xzf rbenv.tar.gz
@@ -12,6 +19,10 @@ cd ${CWD}
 PREFIX=$CWD ../ruby-build-master/install.sh
 mv libexec/* bin
 
+echo Applying patches...
+cd bin
+apply_patches
+cd ..
 if [ -z $RBENV_DESTDIR ]; then
 	RBENV_DESTDIR=/usr/local/rbenv
 	mkdir -p $RBENV_DESTDIR
