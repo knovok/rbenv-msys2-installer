@@ -28,7 +28,7 @@ if [ -z $RBENV_DESTDIR ]; then
 	mkdir -p $RBENV_DESTDIR
 fi
 echo Installing rbenv to $RBENV_DESTDIR...
-mv bin completions rbenv.d share CONDUCT.md LICENSE README.md $RBENV_DESTDIR
+mv bin completions rbenv.d share CODE_OF_CONDUCT.md LICENSE README.md $RBENV_DESTDIR
 cd ..
 rm -rf rbenv-master ruby-build-master rbenv.tar.gz ruby-build.tar.gz
 echo Installed rbenv to $RBENV_DESTDIR
