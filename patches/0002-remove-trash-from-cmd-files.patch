@@ -1,13 +1,13 @@
 diff --git a/bin/rbenv-install b/bin/rbenv-install
-index 5a723d7..db759d2 100755
+index 9048f18..50dc74f 100755
 --- a/bin/rbenv-install
 +++ b/bin/rbenv-install
-@@ -224,6 +224,14 @@ fi
+@@ -235,6 +235,14 @@ fi
  # Execute `after_install` hooks.
  for hook in "${after_hooks[@]}"; do eval "$hook"; done
  
 +# Remove trash from *.cmd files (only for MSYS2).
-+if [ $(uname -o) = "Msys" ] && [ -d "${PREFIX}/bin" ]; then
++if [ $(awk -F= '$1=="ID" { print $2; }' /etc/os-release) = "msys2" ] && [ -d "${PREFIX}/bin" ]; then
 +  for cmdfile in $(find "${PREFIX}/bin" -name "*.cmd"); do
 +    echo created file: "${cmdfile%.*}"
 +    tail -n +9 "$cmdfile" > "${cmdfile%.*}"
