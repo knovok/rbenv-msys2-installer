@@ -8,7 +8,7 @@ index 3d61f58..60fdb0b 100755
  
 +# Remove trash from files without extension or *.cmd files (only for MSYS2).
 +if [ $(awk -F= '$1=="ID" { print $2; }' /etc/os-release) = "msys2" ] && [ -d "${PREFIX}/bin" ]; then
-+  for cmdfile in $(find "${PREFIX}/bin/*" ! -name "*.*" -o -name "*.cmd"); do
++  for cmdfile in $(find "${PREFIX}"/bin/* ! -name "*.*" -o -name "*.cmd"); do
 +    tail -n +9 "$cmdfile" > "${cmdfile}_" && mv "${cmdfile}_" "$cmdfile" && echo created file: "${cmdfile}"
 +  done
 +fi
