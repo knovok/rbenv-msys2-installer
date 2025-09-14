@@ -9,7 +9,7 @@ index b5f47800..7974895c 100755
 +# Replace script in *.bat files (only for MSYS2).
 +if [ $(awk -F= '$1=="ID" { print $2; }' /etc/os-release) = "msys2" ] && [ -d "${RBENV_ROOT}/shims" ]; then
 +  for batfile in $(find "${RBENV_ROOT}"/shims/* -name "*.bat"); do
-+    echo -e '@ECHO OFF\r\nset /p VERSION=<..\\version\r\n..\\versions\\%VERSION%\\bin\\%0 %*' > "${batfile}"
++    echo -e '@ECHO OFF\r\nSET /P VERSION=<%~dp0\..\\version\r\n%~dp0\..\\versions\\%VERSION%\\bin\\%0 %*' > "${batfile}"
 +  done
 +fi
 +
