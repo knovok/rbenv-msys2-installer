@@ -1,18 +1,15 @@
-diff --git a/bin/rbenv-install b/bin/rbenv-install
-index b5f47800..7974895c 100755
---- a/bin/rbenv-install
-+++ b/bin/rbenv-install
-@@ -263,6 +263,13 @@ fi
- # Execute `after_install` hooks.
- for hook in "${after_hooks[@]}"; do eval "$hook"; done
+diff --git a/libexec/rbenv-rehash b/libexec/rbenv-rehash
+index 8ed7674..84bd175 100755
+--- a/libexec/rbenv-rehash
++++ b/libexec/rbenv-rehash
+@@ -178,3 +178,10 @@ done
  
+ install_registered_shims
+ remove_stale_shims
++
 +# Replace script in *.bat files (only for MSYS2).
 +if [ $(awk -F= '$1=="ID" { print $2; }' /etc/os-release) = "msys2" ] && [ -d "${RBENV_ROOT}/shims" ]; then
 +  for batfile in $(find "${RBENV_ROOT}"/shims/* -name "*.bat"); do
 +    echo -e '@ECHO OFF\r\nSET /P VERSION=<%~dp0\..\\version\r\n%~dp0\..\\versions\\%VERSION%\\bin\\%0 %*' > "${batfile}"
 +  done
 +fi
-+
- # Run `rbenv-rehash` after a successful installation.
- if [ "$STATUS" == "0" ]; then
-   rbenv-rehash
